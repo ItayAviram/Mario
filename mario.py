@@ -4,7 +4,6 @@ import pygame
 
 class Mario(Character):
     def __init__(self, pos, image, leaves=None):
-        super().__init__(pos, image, leaves)
         self.x, self.y = pos[0], pos[1]
         self.image = image
 
@@ -26,6 +25,9 @@ class Mario(Character):
     def die(self):
         pass
 
+    def draw(self):
+        pass
+    
     def speak(self, what_to_say):
         pass
 
