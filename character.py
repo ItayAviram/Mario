@@ -31,6 +31,10 @@ class Character(ABC):
 
     @abstractmethod
     def stop(self):
+        """
+        this method should be called when the character throws a projectile
+        :return:
+        """
         pass
 
     @abstractmethod
