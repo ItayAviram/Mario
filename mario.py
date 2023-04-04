@@ -3,6 +3,6 @@ import pygame
 
 
 class Mario(Character):
-    def __init__(self, pos, image, leaves, throws=3, health=3):
+    def __init__(self, pos, image):
         self.x, self.y = pos[0], pos[1]
         self.image = image
