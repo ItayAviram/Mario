@@ -3,6 +3,7 @@ import pygame
 
 
 class Mario(Character):
+    # noinspection PyMissingConstructor
     def __init__(self, pos, image, leaves=None):
         self.x, self.y = pos[0], pos[1]
         self.image = image
@@ -25,9 +26,9 @@ class Mario(Character):
     def die(self):
         pass
 
-    def draw(self):
+    def draw(self, surface):
         pass
-    
+
     def speak(self, what_to_say):
         pass
 
