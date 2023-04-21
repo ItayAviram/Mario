@@ -79,6 +79,15 @@ class CharacterEnemy(AutoMovEnemy):
         pass
 
     @abstractmethod
+    def get_rect(self):
+        """
+        this method returns the character's rect in the form of pygame.Surface
+        :return: self.rect
+        """
+        pass
+
+
+    @abstractmethod
     def draw(self, surface):
         """
         draw the image on the screen.

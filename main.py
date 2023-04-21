@@ -7,6 +7,8 @@ from mushroom import mushroom
 from princess import Princess
 from enemy import Enemy
 
+from tile import tiles
+
 pygame.init()
 width, height = (900, 600)
 screen = pygame.display.set_mode((width, height))
@@ -25,6 +27,8 @@ e = Enemy((120, 120), (50, 50), enemyimage, 0)
 
 background_image = pygame.image.load(r'images\bcimage.jpg')
 background_image = pygame.transform.scale(background_image, (width, height))
+
+
 def main():
     while True:
         for event in pygame.event.get():
@@ -32,8 +36,8 @@ def main():
                 pygame.quit()
                 sys.exit(1)
 
-
         screen.blit(background_image, (0, 0))
+        tiles.draw(screen)
 
         p.draw(screen)
         p.update()
