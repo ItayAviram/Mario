@@ -5,8 +5,10 @@ import pygame
 class python_snake(Character):
     # noinspection PyMissingConstructor
     def __init__(self, pos, image, leaves=None):
-        self.x, self.y = pos[0], pos[1]
-        self.image = image
+        self.x, self.y = pos[0], pos[1]  # (x, y)
+        self.image = image  # type: pygame.Surface
+        image.fill("white")
+        self.rect = self.image.get_rect(topleft=pos)
 
     def move_x(self):
         pass
@@ -27,7 +29,7 @@ class python_snake(Character):
         pass
 
     def draw(self, surface):
-        pass
+        surface.blit(self.image, (self.x, self.y))
 
     def speak(self, what_to_say):
         pass
