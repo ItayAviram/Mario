@@ -1,6 +1,9 @@
 import pygame
 import sys
 
+from checkpoint import checkpoint
+from mario import Mario
+from mushroom import mushroom
 from princess import Princess
 from enemy import Enemy
 
@@ -11,6 +14,9 @@ pygame.display.set_caption("Mario")
 clock = pygame.time.Clock()
 
 p = Princess((100, 100), pygame.Surface((10, 50)), 0)
+c = checkpoint((150, 100), pygame.Surface((10, 80)), 0)
+m = mushroom((110, 100), pygame.Surface((10, 10)), 0)
+ma = Mario((200, 100), pygame.Surface((10, 50)), 0)
 
 enemyimage = pygame.image.load(r'images\enemy.png') # type: pygame.Surface
 
@@ -28,10 +34,15 @@ def main():
 
 
         screen.blit(background_image, (0, 0))
-        pygame.display.update()
 
         p.draw(screen)
         p.update()
+
+        c.draw(screen)
+
+        m.draw(screen)
+
+        ma.draw(screen)
 
         e.draw(screen)
         e.update()
