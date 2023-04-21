@@ -17,7 +17,7 @@ class Princess(Character):
         self.health = health
         # movement:
         #   constants:
-        self.xvel = 8
+        self.x_speed_mul = 8
         self.jump_height = 8
         self.gravity = 0.25
         #   changeables:
@@ -25,7 +25,7 @@ class Princess(Character):
         self.yvel = 0
 
     def move_x(self):
-        self.x += self.direction * self.xvel
+        self.x += self.direction * self.x_speed_mul
 
     def move_y(self):
         self.y += self.yvel
