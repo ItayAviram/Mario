@@ -75,3 +75,7 @@ class Princess(Character):
 
     def update_leaves(self, val):
         self.leaves = val
+
+    def get_rect(self):
+        return self.rect
+

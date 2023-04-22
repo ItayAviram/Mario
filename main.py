@@ -21,14 +21,14 @@ pygame.display.set_caption("Mario")
 clock = pygame.time.Clock()
 
 p = Princess((100, 100), pygame.Surface((10, 50)), 0)
-c = checkpoint((150, 100), pygame.Surface((10, 80)), 0)
-m = mushroom((110, 100), pygame.Surface((10, 10)), 0)
-ma = Mario((200, 100), pygame.Surface((10, 50)), 0)
-py = python_snake((160, 100), pygame.Surface((10, 5)), 0)
-ca = carnivorous_plant((170, 100), pygame.Surface((20, 80)), 0)
-b = button((180, 100), pygame.Surface((15, 15)), 0)
-a = acorn((190, 100), pygame.Surface((5, 5)), 0)
-ba = banana_peel((200, 100), pygame.Surface((5, 5)), 0)
+# c = checkpoint((150, 100), pygame.Surface((10, 80)), 0)
+# m = mushroom((110, 100), pygame.Surface((10, 10)), 0)
+# ma = Mario((200, 100), pygame.Surface((10, 50)), 0)
+# py = python_snake((160, 100), pygame.Surface((10, 5)), 0)
+# ca = carnivorous_plant((170, 100), pygame.Surface((20, 80)), 0)
+# b = button((180, 100), pygame.Surface((15, 15)), 0)
+# a = acorn((190, 100), pygame.Surface((5, 5)), 0)
+# ba = banana_peel((200, 100), pygame.Surface((5, 5)), 0)
 
 enemyimage = pygame.image.load(r'images\enemy.png') # type: pygame.Surface
 
@@ -52,21 +52,14 @@ def main():
         p.draw(screen)
         p.update()
 
-        c.draw(screen)
-
-        m.draw(screen)
-
-        ma.draw(screen)
-
-        py.draw(screen)
-
-        ca.draw(screen)
-
-        b.draw(screen)
-
-        a.draw(screen)
-
-        ba.draw(screen)
+        # c.draw(screen)
+        # m.draw(screen)
+        # ma.draw(screen)
+        # py.draw(screen)
+        # ca.draw(screen)
+        # b.draw(screen)
+        # a.draw(screen)
+        # ba.draw(screen)
 
         e.draw(screen)
         e.update()
