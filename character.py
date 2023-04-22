@@ -12,6 +12,12 @@ class Character(Movement):
     # noinspection PyMissingConstructor
     @abstractmethod
     def __init__(self, pos, image, leaves, throws=3, health=3):
+        self.x, self.y = pos[0], pos[1]
+        self.image = image
+        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+        self.leaves = leaves
+        self.throws = throws
+        self.health = health
         """
         :param tuple pos: character position (x, y)
         :param pygame.Surface image: image of the character
@@ -52,6 +58,31 @@ class Character(Movement):
         :return: self.rect
         """
         pass
+
+    def set_rect_left(self, val):
+        """
+        the following methods are used to update the rectangle position
+        these methods take care that the self.x and self.y values
+        will stay synced with the rect position values.
+        you *should not* change the self.rect.left/right/top/bottom in the form of
+        self.rect.left = val
+        use these methods instead.
+        """
+        self.rect.left = val
+        self.x = self.rect.left
+
+    def set_rect_right(self, val):
+        self.rect.right = val
+        self.x = self.rect.left
+
+    def set_rect_top(self, val):
+        self.rect.top = val
+        self.y = self.rect.top
+
+    def set_rect_bottom(self, val):
+        self.rect.bottom = val
+        self.y = self.rect.top
+
 
 
 if __name__ == "__main__":

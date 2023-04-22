@@ -24,18 +24,33 @@ class Princess(Character):
         self.direction = 0  # direction of x
         self.yvel = 0
 
+    def set_x(self, val):
+        self.x = val
+        self.rect.left = val
+
+    def set_y(self, val):
+        self.y = val
+        self.rect.top = val
+
     def move_x(self):
-        self.x += self.direction * self.x_speed_mul
+        self.set_x(self.x + self.direction * self.x_speed_mul)
 
     def move_y(self):
-        self.y += self.yvel
+        self.set_y(self.y + self.yvel)
 
     def jump(self):
         self.yvel = self.jump_height * (-1)
 
-    def stop(self):
-        self.yvel = 0
+    def stop_x(self):
         self.direction = 0
+
+    def stop_y(self):
+        self.yvel = 0
+
+    def stop(self):
+        self.stop_x()
+        self.stop_y()
+
 
     def accelerate(self):
         self.yvel += self.gravity
@@ -64,10 +79,14 @@ class Princess(Character):
         if keys[pygame.K_SPACE]:
             self.stop()
 
-    def update(self):
+    def update(self, tiles):
+        print(self.yvel)
         self.get_input()
         self.move_x()
+        self.check_collision_horizontal(tiles)
         self.move_y()
+        self.check_collision_vertical(tiles)
+
         self.accelerate()
 
     def update_health(self, val):
@@ -79,3 +98,30 @@ class Princess(Character):
     def get_rect(self):
         return self.rect
 
+    def check_collision_horizontal(self, tiles):
+        for tile in tiles:
+            col = tile.check_collision_horizontal(self)
+            if col:
+                print(col)
+
+    def check_collision_vertical(self, tiles):
+        for tile in tiles:
+            col = tile.check_collision_vertical(self)
+            if col:
+                print(col)
+
+    def set_rect_left(self, val):
+        self.rect.left = val
+        self.x = self.rect.left
+
+    def set_rect_right(self, val):
+        self.rect.right = val
+        self.x = self.rect.left
+
+    def set_rect_top(self, val):
+        self.rect.top = val
+        self.y = self.rect.top
+
+    def set_rect_bottom(self,val):
+        self.rect.bottom = val
+        self.y = self.rect.top

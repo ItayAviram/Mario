@@ -13,9 +13,9 @@ from acorn import acorn
 from banana_peel import banana_peel
 
 from tile import tiles
+from config import *
 
 pygame.init()
-width, height = (900, 600)
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Mario")
 clock = pygame.time.Clock()
@@ -50,7 +50,7 @@ def main():
         tiles.draw(screen)
 
         p.draw(screen)
-        p.update()
+        p.update(tiles)
 
         # c.draw(screen)
         # m.draw(screen)
