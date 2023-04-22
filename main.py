@@ -1,16 +1,16 @@
 import pygame
 import sys
 
-from checkpoint import checkpoint
-from mario import Mario
-from mushroom import mushroom
-from princess import Princess
-from enemy import Enemy
-from python_snake import python_snake
-from carnivorous_plant import carnivorous_plant
-from button import button
-from acorn import acorn
-from banana_peel import banana_peel
+# from checkpoint import checkpoint
+# from mario import Mario
+# from mushroom import mushroom
+# from princess import Princess
+# from enemy import Enemy
+# from python_snake import python_snake
+# from carnivorous_plant import carnivorous_plant
+# from button import button
+# from acorn import acorn
+# from banana_peel import banana_peel
 
 from level import Level
 from config import *
@@ -53,7 +53,6 @@ def main():
         # b.draw(screen)
         # a.draw(screen)
         # ba.draw(screen)
-
 
         pygame.display.update()
         clock.tick(60)
