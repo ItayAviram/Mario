@@ -12,9 +12,9 @@ class Tile(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(image, size)
         else:
             self.image = pygame.Surface((size, size))
-            self.image.fill((160,82,45))
+            self.image.fill((160, 82, 45))
 
-        self.collision_tolerance = 10
+        self.collision_tolerance = 20
 
     def draw(self, surface: pygame.Surface):
         surface.blit(self.image, self.pos)
@@ -38,19 +38,18 @@ class Tile(pygame.sprite.Sprite):
                 obj.stop_y()
                 obj.set_rect_bottom(self.rect.top)
                 return "top"
-            if abs(self.rect.bottom - obj.rect.left) <= self.collision_tolerance:
+            if abs(self.rect.bottom - obj.rect.top) <= self.collision_tolerance:
                 obj.stop_y()
                 obj.set_rect_top(self.rect.bottom)
                 return "bottom"
+
+    def move_x(self, relative_dest):
+        self.pos = (self.pos[0] + relative_dest, self.pos[1])
+        self.rect.left = self.pos[0]
 
 
 tile_image = pygame.image.load(r"images\tile.png")
 tile_image = pygame.transform.scale(tile_image, (tile_size, tile_size))
 
 
-tiles = pygame.sprite.Group()
-for y, row in enumerate(level_map):
-    for x, col in enumerate(row):
-        if col == "X":
-            tiles.add(Tile((x * tile_size, y * tile_size), tile_size))
 

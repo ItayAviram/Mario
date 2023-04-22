@@ -17,12 +17,17 @@ class Princess(Character):
         self.health = health
         # movement:
         #   constants:
-        self.x_speed_mul = 8
-        self.jump_height = 8
+        self.xvel = 8
+        self.jump_height = 10
         self.gravity = 0.25
         #   changeables:
+        self.x_speed_mul = self.xvel
         self.direction = 0  # direction of x
         self.yvel = 0
+
+        self.pressed_space = False
+        self.can_jump = False
+
 
     def set_x(self, val):
         self.x = val
@@ -74,18 +79,26 @@ class Princess(Character):
             self.direction = -1
         else:
             self.direction = 0
-        if keys[pygame.K_w]:
+        if keys[pygame.K_w] and self.can_jump:
             self.jump()
+
         if keys[pygame.K_SPACE]:
-            self.stop()
+            if not self.pressed_space:
+                self.stop()
+            self.pressed_space = True
+        else:
+            self.pressed_space = False
 
     def update(self, tiles):
-        print(self.yvel)
         self.get_input()
         self.move_x()
         self.check_collision_horizontal(tiles)
         self.move_y()
-        self.check_collision_vertical(tiles)
+        ver_col = self.check_collision_vertical(tiles)
+        if ver_col == "top":
+            self.can_jump = True
+        else:
+            self.can_jump = False
 
         self.accelerate()
 
@@ -101,14 +114,14 @@ class Princess(Character):
     def check_collision_horizontal(self, tiles):
         for tile in tiles:
             col = tile.check_collision_horizontal(self)
-            if col:
-                print(col)
+            if col:  # col != None
+                return col
 
     def check_collision_vertical(self, tiles):
         for tile in tiles:
             col = tile.check_collision_vertical(self)
-            if col:
-                print(col)
+            if col:  # col != None
+                return col
 
     def set_rect_left(self, val):
         self.rect.left = val

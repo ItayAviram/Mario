@@ -3,10 +3,10 @@ from abc import ABC, abstractmethod
 
 class Movement(ABC):
     @abstractmethod
-    def __init__(self, pos, xvel, yvel, gravity=0):
+    def __init__(self, pos, x_speed_mul, yvel, gravity=0):
         self.pos = pos  # changes
 
-        self.xvel = xvel  # const
+        self.x_speed_mul = x_speed_mul  # const
         self.yvel = yvel  # changes
         self.direction = 0  # changes
 
@@ -14,7 +14,7 @@ class Movement(ABC):
         
         """
         :param pos: position on screen (x, y)
-        :param xvel: velocity of object on the x axis
+        :param x_speed_mul: velocity of object on the x axis
         :param yvel: velocity of object on the y axis
         :param gravity: acceleration of object on the *y axis* (0 by default)
         """
