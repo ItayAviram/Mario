@@ -3,6 +3,7 @@ import random
 
 width, height = (900, 600)
 p_width, p_height = 20, 50  # princess width and height
+c_width, c_height = 20, 50  # checkpoint width and height
 
 # generate level map: [["" for i in range(<width>)] for j in range(<height>)]
 # X represents a tile
@@ -19,7 +20,7 @@ level_map = [
     "X    X    X X    XX X      X  ",
     "    X  XX   X  X              ",
     "   X                 X   X    ",
-    " X  X     XX     X     X X    ",
+    " X  X  C   XX     X     X X    ",
     " XX  X      XXX XXX           ",
     "                X      X X   X",
     " X     X     X  X    X    X   ",

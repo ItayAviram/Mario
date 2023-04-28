@@ -72,14 +72,17 @@ class Character(Movement):
         self.rect.left = val
         self.x = self.rect.left
 
+    @abstractmethod
     def set_rect_right(self, val):
         self.rect.right = val
         self.x = self.rect.left
 
+    @abstractmethod
     def set_rect_top(self, val):
         self.rect.top = val
         self.y = self.rect.top
 
+    @abstractmethod
     def set_rect_bottom(self, val):
         self.rect.bottom = val
         self.y = self.rect.top

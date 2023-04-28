@@ -2,6 +2,7 @@ import pygame
 from config import *
 from tile import Tile
 from princess import Princess
+from checkpoint import Checkpoint
 
 
 class Level:
@@ -10,6 +11,7 @@ class Level:
         self.display_surface = surface
         self.tiles = pygame.sprite.Group()
         self.enemies = []
+        self.checkpoints = []
         self.tile_shift = 0
         self.shift_offset = tile_size * 3
 
@@ -21,6 +23,8 @@ class Level:
                 pos = (x * tile_size, y * tile_size)
                 if col == "X":
                     self.tiles.add(Tile(pos, tile_size))
+                if col == "C":
+                    self.checkpoints.append(Checkpoint(pos,pygame.Surface((c_width, c_height)),self))
                 if col == "P":
                     self.princess = Princess((pos[0] - p_width, pos[1]-p_height),
                                              pygame.Surface((p_width, p_height)), 0)
@@ -30,11 +34,15 @@ class Level:
         self.tiles.draw(self.display_surface)
         for enemy in self.enemies:
             enemy.draw(self.display_surface)
+        for checkpoint in self.checkpoints:
+            checkpoint.draw(self.display_surface)
         self.princess.draw(self.display_surface)
 
     def update(self):
         self.princess.update(self.tiles)
         self.scroll_x()
+        for checkpoint in self.checkpoints:
+            checkpoint.update(self.tiles)
 
     def scroll_x(self):
         princess_rect = self.princess.get_rect()

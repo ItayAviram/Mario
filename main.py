@@ -1,7 +1,7 @@
 import pygame
 import sys
 
-# from checkpoint import checkpoint
+# from checkpoint import Checkpoint
 # from mario import Mario
 # from mushroom import mushroom
 # from princess import Princess
@@ -22,7 +22,7 @@ pygame.display.set_caption("Mario")
 clock = pygame.time.Clock()
 
 
-# c = checkpoint((150, 100), pygame.Surface((10, 80)), 0)
+# c = Checkpoint((150, 100), pygame.Surface((10, 80)), 0)
 # m = mushroom((110, 100), pygame.Surface((10, 10)), 0)
 # ma = Mario((200, 100), pygame.Surface((10, 50)), 0)
 # py = python_snake((160, 100), pygame.Surface((10, 5)), 0)
@@ -32,7 +32,7 @@ clock = pygame.time.Clock()
 # ba = banana_peel((200, 100), pygame.Surface((5, 5)), 0)
 
 
-e = Enemy((120, 120), (50, 50), enemy_image, 0)
+#e = Enemy((120, 120), (50, 50), enemy_image, 0)
 level = Level(level_map, screen)
 
 
