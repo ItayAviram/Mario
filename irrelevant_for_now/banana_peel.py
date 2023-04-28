@@ -9,7 +9,7 @@ class banana_peel(Character):
         self.image = image  # type: pygame.Surface
         image.fill("white")
         self.rect = self.image.get_rect(topleft=pos)
-#new
+#double new 
     def move_x(self):
         pass
 
