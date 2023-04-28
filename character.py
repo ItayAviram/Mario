@@ -59,6 +59,7 @@ class Character(Movement):
         """
         pass
 
+    @abstractmethod
     def set_rect_left(self, val):
         """
         the following methods are used to update the rectangle position

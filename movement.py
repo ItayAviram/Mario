@@ -78,4 +78,15 @@ class Movement(ABC):
         """
         pass
 
+    def set_x(self, val):
+        """
+        set method for self.x
+        """
+        pass
+
+    def set_y(self, val):
+        """
+        set method for self.y
+        """
+        pass
 

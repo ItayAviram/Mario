@@ -11,7 +11,7 @@ class Level:
         self.tiles = pygame.sprite.Group()
         self.enemies = []
         self.tile_shift = 0
-        self.shift_offset = tile_size * 4
+        self.shift_offset = tile_size * 3
 
         self.setup_level()
 

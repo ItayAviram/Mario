@@ -28,7 +28,6 @@ class Princess(Character):
         self.pressed_space = False
         self.can_jump = False
 
-
     def set_x(self, val):
         self.x = val
         self.rect.left = val
@@ -92,9 +91,9 @@ class Princess(Character):
     def update(self, tiles):
         self.get_input()
         self.move_x()
-        self.check_collision_horizontal(tiles)
+        self.check_collision_horizontal(tiles)  # x
         self.move_y()
-        ver_col = self.check_collision_vertical(tiles)
+        ver_col = self.check_collision_vertical(tiles)  # y
         if ver_col == "top":
             self.can_jump = True
         else:
