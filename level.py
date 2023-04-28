@@ -12,6 +12,7 @@ class Level:
         self.tiles = pygame.sprite.Group()
         self.enemies = []
         self.checkpoints = []
+        self.cones = []
         self.tile_shift = 0
         self.shift_offset = tile_size * 3
 
@@ -24,25 +25,27 @@ class Level:
                 if col == "X":
                     self.tiles.add(Tile(pos, tile_size))
                 if col == "C":
-                    self.checkpoints.append(Checkpoint(pos,pygame.Surface((c_width, c_height)),self))
+                    self.checkpoints.append(Checkpoint(pos, pygame.Surface((c_width, c_height)), self))
                 if col == "P":
                     self.princess = Princess((pos[0] - p_width, pos[1]-p_height),
-                                             pygame.Surface((p_width, p_height)), 0)
+                                             pygame.Surface((p_width, p_height)), self)
 
     def draw(self):
         self.display_surface.blit(background_image, (0, 0))
         self.tiles.draw(self.display_surface)
-        for enemy in self.enemies:
-            enemy.draw(self.display_surface)
-        for checkpoint in self.checkpoints:
-            checkpoint.draw(self.display_surface)
+
+        self.draw_list(self.enemies, self.display_surface)
+        self.draw_list(self.checkpoints, self.display_surface)
+        self.draw_list(self.cones, self.display_surface)
+
         self.princess.draw(self.display_surface)
 
     def update(self):
         self.princess.update(self.tiles)
         self.scroll_x()
-        for checkpoint in self.checkpoints:
-            checkpoint.update(self.tiles)
+
+        self.update_list(self.checkpoints, self.tiles)
+        self.update_list(self.cones, self.tiles)
 
     def scroll_x(self):
         princess_rect = self.princess.get_rect()
@@ -63,3 +66,13 @@ class Level:
     def scroll_tiles_x(self):
         for tile in self.tiles:
             tile.move_x(self.tile_shift)
+
+    @staticmethod
+    def draw_list(lst, surface):
+        for obj in lst:
+            obj.draw(surface)
+
+    @staticmethod
+    def update_list(lst, *args):
+        for obj in lst:
+            obj.update(*args)

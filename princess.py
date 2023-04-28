@@ -1,4 +1,6 @@
+from config import cone_width, cone_height, cone_x_vel, cone_y_vel
 from character import Character
+from cone import Cone
 import pygame
 
 
@@ -7,11 +9,12 @@ gravity = 10
 
 class Princess(Character):
     # noinspection PyMissingConstructor
-    def __init__(self, pos, image, leaves, throws=3, health=3):
+    def __init__(self, pos, image, level, leaves=0, throws=3, health=3):
         self.x, self.y = pos[0], pos[1]  # (x, y)
         self.image = image  # type: pygame.Surface
         image.fill("white")
         self.rect = self.image.get_rect(topleft=pos)
+        self.level = level
         self.leaves = leaves
         self.throws = throws
         self.health = health
@@ -70,6 +73,12 @@ class Princess(Character):
     def draw(self, surface):
         surface.blit(self.image, (self.x, self.y))
 
+    def throw(self):
+        self.stop()
+        self.level.cones.append(Cone((self.x, self.y), pygame.Surface((cone_width, cone_height)),
+                                     self.level, cone_x_vel, cone_y_vel)
+                                )
+
     def get_input(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
@@ -83,7 +92,7 @@ class Princess(Character):
 
         if keys[pygame.K_SPACE]:
             if not self.pressed_space:
-                self.stop()
+                self.throw()
             self.pressed_space = True
         else:
             self.pressed_space = False

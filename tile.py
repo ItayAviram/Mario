@@ -16,6 +16,10 @@ class Tile(pygame.sprite.Sprite):
 
         self.collision_tolerance = 20
 
+    def get_rect(self):
+        return self.rect
+
+
     def draw(self, surface: pygame.Surface):
         surface.blit(self.image, self.pos)
 

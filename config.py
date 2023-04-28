@@ -4,6 +4,11 @@ import random
 width, height = (900, 600)
 p_width, p_height = 20, 50  # princess width and height
 c_width, c_height = 20, 50  # checkpoint width and height
+cone_width, cone_height = 20, 20
+
+cone_x_vel = 10
+cone_y_vel = -2
+
 
 # generate level map: [["" for i in range(<width>)] for j in range(<height>)]
 # X represents a tile
