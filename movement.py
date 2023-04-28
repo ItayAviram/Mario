@@ -45,6 +45,7 @@ class Movement(ABC):
         """
         pass
 
+    @abstractmethod
     def stop_x(self):
         """
         stop the character in the x axis
@@ -52,6 +53,7 @@ class Movement(ABC):
         """
         self.direction = 0
 
+    @abstractmethod
     def stop_y(self):
         """
         stop the character in the y axis
