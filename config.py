@@ -4,6 +4,7 @@ import random
 width, height = (900, 600)
 p_width, p_height = 20, 50  # princess width and height
 c_width, c_height = 20, 50  # checkpoint width and height
+a_width, a_height = 20, 50  # carnivorous plant width and height
 cone_width, cone_height = 20, 20
 
 cone_x_vel = 10
@@ -18,6 +19,7 @@ cone_y_vel = -2
 # C represents a checkpoint
 # S represents a snake
 # B represents a banana peal
+# A represents a carnivorous plant
 
 level_map = [
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -25,11 +27,11 @@ level_map = [
     "X    X    X X    XX X      X  ",
     "    X  XX   X  X              ",
     "   X                 X   X    ",
-    " X  X  C   XX     X     X X    ",
+    " X  X     XX     X     X X    ",
     " XX  X      XXX XXX           ",
-    "                X      X X   X",
+    "          A     X      X X   X",
     " X     X     X  X    X    X   ",
-    "   P   X X X   X        X   X ",
+    "   P   X X X   X  C      X  X ",
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 ]
 

@@ -7,7 +7,7 @@ import sys
 # from princess import Princess
 # from enemy import Enemy
 # from python_snake import python_snake
-# from carnivorous_plant import carnivorous_plant
+# from carnivorous_plant import Carnivorous_plant
 # from button import button
 # from acorn import acorn
 # from banana_peel import banana_peel
