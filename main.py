@@ -12,6 +12,7 @@ import sys
 # from acorn import acorn
 # from banana_peel import banana_peel
 
+
 from enemy import Enemy
 from level import Level
 from config import *
@@ -31,8 +32,7 @@ clock = pygame.time.Clock()
 # a = acorn((190, 100), pygame.Surface((5, 5)), 0)
 # ba = banana_peel((200, 100), pygame.Surface((5, 5)), 0)
 
-
-#e = Enemy((120, 120), (50, 50), enemy_image, 0)
+e = Enemy((200, 200), (50, 50), enemy_image, 0)
 level = Level(level_map, screen)
 
 
@@ -45,6 +45,7 @@ def main():
 
         level.draw()
         level.update()
+        e.draw(screen)
 
         # c.draw(screen)
         # m.draw(screen)

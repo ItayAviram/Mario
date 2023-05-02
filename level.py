@@ -4,7 +4,7 @@ from tile import Tile
 from princess import Princess
 from checkpoint import Checkpoint
 from carnivorous_plant import Carnivorous_plant
-
+from enemy import Enemy
 
 class Level:
     def __init__(self, level_map, surface):
@@ -33,6 +33,7 @@ class Level:
                 if col == "P":
                     self.princess = Princess((pos[0] - p_width, pos[1]-p_height),
                                              pygame.Surface((p_width, p_height)), self)
+
     def draw(self):
         self.display_surface.blit(background_image, (0, 0))
         self.tiles.draw(self.display_surface)
@@ -51,6 +52,9 @@ class Level:
         self.update_list(self.checkpoints, self.tiles)
         self.update_list(self.carnivorous_plants, self.tiles)
         self.update_list(self.cones, self.tiles)
+
+        for enemy in self.enemies:
+            enemy.update()
 
     def scroll_x(self):
         princess_rect = self.princess.get_rect()
@@ -81,3 +85,7 @@ class Level:
     def update_list(lst, *args):
         for obj in lst:
             obj.update(*args)
+
+    def create_enemy(self, pos):
+        enemy = Enemy(pos, enemy_size, enemy_image, enemy_speed)
+        self.enemies.append(enemy)
