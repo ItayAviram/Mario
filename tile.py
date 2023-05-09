@@ -12,7 +12,8 @@ class Tile(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(image, size)
         else:
             self.image = pygame.Surface((size, size))
-            self.image.fill((160, 82, 45))
+            self.image.fill((255,255,255))  # outline
+            self.image.fill((0, 0, 0), self.image.get_rect().inflate(-3, -3))
 
         self.collision_tolerance = 20
 

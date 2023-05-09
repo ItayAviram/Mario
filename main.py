@@ -33,7 +33,7 @@ clock = pygame.time.Clock()
 
 
 #e = Enemy((120, 120), (50, 50), enemy_image, 0)
-level = Level(level_map, screen)
+level = Level(level_blocks, screen)
 
 
 def main():

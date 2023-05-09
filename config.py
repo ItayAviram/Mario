@@ -19,19 +19,91 @@ cone_y_vel = -2
 # S represents a snake
 # B represents a banana peal
 
-level_map = [
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    "X    X      X          X   X  ",
-    "X    X    X X    XX X      X  ",
-    "    X  XX   X  X              ",
-    "   X                 X   X    ",
-    " X  X  C   XX     X     X X    ",
-    " XX  X      XXX XXX           ",
-    "                X      X X   X",
-    " X     X     X  X    X    X   ",
-    "   P   X X X   X        X   X ",
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+
+
+
+level_blocks = [
+    [
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "                             X",
+        "X                             ",
+        "           XXX                ",
+        "                              ",
+        "        X    XX               ",
+        "       XXX  X  X              ",
+        "                   XXX        ",
+        "   P                          ",
+        "XXXXXXXXXXXXXXXXXXXXXXX   XXXX"
+     ],
+    [
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "                             X",
+        "X         X                   ",
+        "         XXX                  ",
+        "          X                   ",
+        "      XX                      ",
+        "     XXXX                     ",
+        "           XXXXX              ",
+        "   P                          ",
+        "XXXXXXXX   XXXXXXXXXXXXXXXXXXX"
+     ],
+    [
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "                             X",
+        "X                             ",
+        "                              ",
+        "                              ",
+        "      XX                      ",
+        "     X                  X  X  ",
+        "                       XX  XX ",
+        "   P                  XXX  XXX",
+        "XXXXXXXX   XXXXXXXXXXXXXXXXXXX"
+     ],
+[
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "                             X",
+        "X                             ",
+        "                              ",
+        "                   XX         ",
+        "                  XXXX   XXX  ",
+        "     XXXX                     ",
+        "              X               ",
+        "   P                          ",
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+     ],
+[
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "                             X",
+        "X                             ",
+        "                    XXXXX     ",
+        "                              ",
+        "           XXX                ",
+        "          XXXXX      X        ",
+        "     XX             XXX       ",
+        "   P                          ",
+        "XXXXXXXXXXX XX XXXXXXXXXXXXXXX"
+     ],
+[
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "                             X",
+        "X                             ",
+        "                              ",
+        "                              ",
+        "      XX                      ",
+        "     XXXX                     ",
+        "             XXXXX            ",
+        "   P                          ",
+        "XXXXXXXX   XXXXXXXXXXXXXXXXXXX"
+     ],
 ]
+
+level_map = level_blocks[0]
+tile_size = height / len(level_blocks[0])
+
+block_width = len(level_blocks[0][0])
+block_height = len(level_blocks[0])
+block_pixel_width = block_width * tile_size  # in pixels
+block_pixel_height = block_height * tile_size  # in pixels
 
 
 def generate_random_level_map(l_width, l_height, chance_for_tile):
@@ -54,9 +126,7 @@ def generate_random_level_map(l_width, l_height, chance_for_tile):
 
 generate_random_level_map(30, 10, 20)
 
-tile_size = height / len(level_map)
-
 # images
 background_image = pygame.image.load(r'images\bcimage.jpg')
 background_image = pygame.transform.scale(background_image, (width, height))
-enemy_image = pygame.image.load(r'images\enemy.png') # type: pygame.Surface
+enemy_image = pygame.image.load(r'images\enemy.png')  # type: pygame.Surface

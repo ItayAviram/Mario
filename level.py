@@ -3,30 +3,37 @@ from config import *
 from tile import Tile
 from princess import Princess
 from checkpoint import Checkpoint
+import random
 
 
 class Level:
-    def __init__(self, level_map, surface):
-        self.level_map = level_map
+    def __init__(self, blocks, surface):
+        self.blocks = blocks
         self.display_surface = surface
         self.tiles = pygame.sprite.Group()
         self.enemies = []
         self.checkpoints = []
         self.cones = []
+
+        self.world_pos = 0
         self.tile_shift = 0
         self.shift_offset = tile_size * 3
+        self.blocks_num = 0
 
-        self.setup_level()
+        self.princess = None
+        self.create_block()
 
-    def setup_level(self):
-        for y, row in enumerate(self.level_map):
+    def create_block(self, xoffset=0, yoffset=0):
+        for y, row in enumerate(random.choice(level_blocks)):
             for x, col in enumerate(row):
-                pos = (x * tile_size, y * tile_size)
+                xpos = x * tile_size + xoffset
+                ypos = y * tile_size + yoffset
+                pos = (xpos, ypos)
                 if col == "X":
                     self.tiles.add(Tile(pos, tile_size))
                 if col == "C":
                     self.checkpoints.append(Checkpoint(pos, pygame.Surface((c_width, c_height)), self))
-                if col == "P":
+                if col == "P" and not self.princess:
                     self.princess = Princess((pos[0] - p_width, pos[1]-p_height),
                                              pygame.Surface((p_width, p_height)), self)
 
@@ -42,7 +49,10 @@ class Level:
 
     def update(self):
         self.princess.update(self.tiles)
+
         self.scroll_x()
+        self.world_pos -= self.tile_shift
+        self.check_block()
 
         self.update_list(self.checkpoints, self.tiles)
         self.update_list(self.cones, self.tiles)
@@ -66,6 +76,16 @@ class Level:
     def scroll_tiles_x(self):
         for tile in self.tiles:
             tile.move_x(self.tile_shift)
+
+    def check_block(self):
+        if self.world_pos + width >= (self.blocks_num + 1) * block_pixel_width:
+            self.blocks_num += 1
+            self.add_block()
+
+    def add_block(self):
+        self.create_block(abs(self.world_pos - self.blocks_num * block_pixel_width))
+
+
 
     @staticmethod
     def draw_list(lst, surface):
