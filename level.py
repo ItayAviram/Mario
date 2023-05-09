@@ -6,6 +6,9 @@ from checkpoint import Checkpoint
 import random
 
 
+from carnivorous_plant import Carnivorous_plant
+from enemy import Enemy
+
 class Level:
     def __init__(self, blocks, surface):
         self.blocks = blocks
@@ -13,6 +16,7 @@ class Level:
         self.tiles = pygame.sprite.Group()
         self.enemies = []
         self.checkpoints = []
+        self.carnivorous_plants = []
         self.cones = []
 
         self.world_pos = 0
@@ -33,6 +37,8 @@ class Level:
                     self.tiles.add(Tile(pos, tile_size))
                 if col == "C":
                     self.checkpoints.append(Checkpoint(pos, pygame.Surface((c_width, c_height)), self))
+                if col == "A":
+                    self.carnivorous_plants.append(Carnivorous_plant(pos, pygame.Surface((a_width, a_height)), self))
                 if col == "P" and not self.princess:
                     self.princess = Princess((pos[0] - p_width, pos[1]-p_height),
                                              pygame.Surface((p_width, p_height)), self)
@@ -44,6 +50,7 @@ class Level:
         self.draw_list(self.enemies, self.display_surface)
         self.draw_list(self.checkpoints, self.display_surface)
         self.draw_list(self.cones, self.display_surface)
+        self.draw_list(self.carnivorous_plants, self.display_surface)
 
         self.princess.draw(self.display_surface)
 
@@ -55,7 +62,11 @@ class Level:
         self.check_block()
 
         self.update_list(self.checkpoints, self.tiles)
+        self.update_list(self.carnivorous_plants, self.tiles)
         self.update_list(self.cones, self.tiles)
+
+        for enemy in self.enemies:
+            enemy.update()
 
     def scroll_x(self):
         princess_rect = self.princess.get_rect()
@@ -96,3 +107,7 @@ class Level:
     def update_list(lst, *args):
         for obj in lst:
             obj.update(*args)
+
+    def create_enemy(self, pos):
+        enemy = Enemy(pos, enemy_size, enemy_image, enemy_speed)
+        self.enemies.append(enemy)

@@ -7,10 +7,11 @@ import sys
 # from princess import Princess
 # from enemy import Enemy
 # from python_snake import python_snake
-# from carnivorous_plant import carnivorous_plant
+# from carnivorous_plant import Carnivorous_plant
 # from button import button
 # from acorn import acorn
 # from banana_peel import banana_peel
+
 
 from enemy import Enemy
 from level import Level
@@ -34,6 +35,7 @@ clock = pygame.time.Clock()
 
 #e = Enemy((120, 120), (50, 50), enemy_image, 0)
 level = Level(level_blocks, screen)
+# e = Enemy((200, 200), (50, 50), enemy_image, 0)
 
 
 def main():
@@ -45,6 +47,7 @@ def main():
 
         level.draw()
         level.update()
+#         e.draw(screen)
 
         # c.draw(screen)
         # m.draw(screen)
