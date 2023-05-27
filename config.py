@@ -2,7 +2,7 @@ import pygame
 import random
 
 width, height = (900, 600)
-p_width, p_height = 20, 50  # princess width and height
+p_width = 40  # princess width and height
 c_width, c_height = 20, 50  # checkpoint width and height
 a_width, a_height = 20, 50  # carnivorous plant width and height
 cone_width, cone_height = 20, 20
@@ -59,7 +59,7 @@ level_blocks = [
         "     X                  X  X  ",
         "                       XX  XX ",
         "   P                  XXX  XXX",
-        "XXXXXXXX   XXXXXXXXXXXXXXXXXXX"
+        "XXXXXXXX   XXXXXXXXXXXXXX  XXX"
      ],
 [
         "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -131,4 +131,8 @@ generate_random_level_map(30, 10, 20)
 # images
 background_image = pygame.image.load(r'images\bcimage.jpg')
 background_image = pygame.transform.scale(background_image, (width, height))
-enemy_image = pygame.image.load(r'images\enemy.png')  # type: pygame.Surface
+enemy_image = pygame.image.load(r'images\enemies\enemy.png')  # type: pygame.Surface
+tile_image = pygame.image.load(r"images\tile.png")
+princess_image = pygame.image.load(r"images\princess.png")
+p_height = p_width * (princess_image.get_height() / princess_image.get_width())  # keep the image width to height ratio
+princess_image = pygame.transform.scale(princess_image, (p_width, p_height))

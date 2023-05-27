@@ -9,6 +9,7 @@ import random
 from carnivorous_plant import Carnivorous_plant
 from enemy import Enemy
 
+
 class Level:
     def __init__(self, blocks, surface):
         self.blocks = blocks
@@ -34,17 +35,18 @@ class Level:
                 ypos = y * tile_size + yoffset
                 pos = (xpos, ypos)
                 if col == "X":
-                    self.tiles.add(Tile(pos, tile_size))
+                    self.tiles.add(Tile(pos, tile_size, tile_image))
                 if col == "C":
                     self.checkpoints.append(Checkpoint(pos, pygame.Surface((c_width, c_height)), self))
                 if col == "A":
                     self.carnivorous_plants.append(Carnivorous_plant(pos, pygame.Surface((a_width, a_height)), self))
                 if col == "P" and not self.princess:
                     self.princess = Princess((pos[0] - p_width, pos[1]-p_height),
-                                             pygame.Surface((p_width, p_height)), self)
+                                             princess_image, self)
 
     def draw(self):
-        self.display_surface.blit(background_image, (0, 0))
+        self.display_surface.fill((96,150,255))
+        # self.display_surface.blit(background_image, (0, 0))
         self.tiles.draw(self.display_surface)
 
         self.draw_list(self.enemies, self.display_surface)
@@ -71,14 +73,14 @@ class Level:
     def scroll_x(self):
         princess_rect = self.princess.get_rect()
 
-        if princess_rect.right >= (width - self.shift_offset) and self.princess.direction == 1:
+        if princess_rect.right >= (width - self.shift_offset) and self.princess.direction == 1:  # check right
             self.tile_shift = self.princess.xvel * (-1)
             self.princess.x_speed_mul = 0
             self.princess.set_rect_right(width - self.shift_offset)
-        elif princess_rect.left <= self.shift_offset and self.princess.direction == -1:
-            self.tile_shift = self.princess.xvel
+        elif princess_rect.left <= 0 and self.princess.direction == -1:
+            self.tile_shift = 0
             self.princess.x_speed_mul = 0
-            self.princess.set_rect_left(self.shift_offset)
+            self.princess.set_rect_left(0)
         else:
             self.princess.x_speed_mul = self.princess.xvel
             self.tile_shift = 0

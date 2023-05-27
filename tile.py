@@ -1,4 +1,3 @@
-import pygame
 from character import Character
 from config import *
 
@@ -8,9 +7,9 @@ class Tile(pygame.sprite.Sprite):
         super().__init__()
         self.pos = pos
         self.rect = pygame.Rect(*self.pos, size, size)
-        if image:
-            self.image = pygame.transform.scale(image, size)
-        else:
+        if image:  # image
+            self.image = pygame.transform.scale(image, (size, size))
+        else:  # rectangle
             self.image = pygame.Surface((size, size))
             self.image.fill((255,255,255))  # outline
             self.image.fill((0, 0, 0), self.image.get_rect().inflate(-3, -3))

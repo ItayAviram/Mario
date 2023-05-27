@@ -1,4 +1,5 @@
 from config import cone_width, cone_height, cone_x_vel, cone_y_vel
+from config import width, height
 from character import Character
 from cone import Cone
 import pygame
@@ -12,7 +13,6 @@ class Princess(Character):
     def __init__(self, pos, image, level, leaves=0, throws=3, health=3):
         self.x, self.y = pos[0], pos[1]  # (x, y)
         self.image = image  # type: pygame.Surface
-        image.fill("white")
         self.rect = self.image.get_rect(topleft=pos)
         self.level = level
         self.leaves = leaves
@@ -63,7 +63,7 @@ class Princess(Character):
         self.yvel += self.gravity
 
     def die(self):
-        pass
+        print("[princess] im dead!")
         # if self.health > 0:
         #     self.update_health(self.health - 1)
 
@@ -109,6 +109,8 @@ class Princess(Character):
             self.can_jump = False
 
         self.accelerate()
+        if self.rect.top > height:
+            self.die()
 
     def update_health(self, val):
         self.health = val
