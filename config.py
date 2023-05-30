@@ -6,11 +6,11 @@ width, height = (1100, 600)
 princess_width = 40  # princess width
 
 cone_width = 40
-cone_x_vel = 10
-cone_y_vel = -2
+cone_x_vel = 8
+cone_y_vel = -4
 
 stone_width = 40
-stone_x_vel = -15
+stone_x_vel = -9
 stone_y_vel = -4
 
 gravity = 0.25
@@ -106,6 +106,7 @@ tile_size = height / len(level_blocks[0])
 # enemies
 b_width = tile_size * 0.8
 m_width = tile_size * 0.8
+snake_width = tile_size * 0.8
 
 # block
 block_width = len(level_blocks[0][0])  # in tiles
@@ -131,6 +132,10 @@ mushroom_image = pygame.image.load(r"images\enemies\mushroom.png")
 m_height = m_width * (mushroom_image.get_height() / mushroom_image.get_width())
 mushroom_image = pygame.transform.scale(mushroom_image, (m_width, m_height))
 
+snake_image = pygame.image.load(r"images\enemies\snake.png")
+snake_height = snake_width * (snake_image.get_height() / snake_image.get_width())
+snake_image = pygame.transform.scale(snake_image, (snake_width, snake_height))
+
 cone_image = pygame.image.load(r"images\pinecone.png")
 cone_height = cone_width * (cone_image.get_height() / cone_image.get_width())
 cone_image = pygame.transform.scale(cone_image, (cone_width, cone_height))
@@ -143,6 +148,8 @@ stone_image = pygame.transform.scale(stone_image, (stone_width, stone_height))
 pygame.font.init()
 font = pygame.font.SysFont("Arial", 72)
 death_message = font.render("Game Over!", True, "white")
+font = pygame.font.SysFont("Arial", 36)
+play_again = font.render("Press 'r' to play again.", True, "white")
 
 
 # def generate_random_level_map(l_width, l_height, chance_for_tile):

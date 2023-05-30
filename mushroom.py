@@ -12,7 +12,7 @@ class Mushroom(Character):
         self.level = level
 
         self.yvel = 0
-        self.stone_cooldown = 100
+        self.stone_cooldown = 150
 
     def set_x(self, val):
         self.x = val
@@ -79,6 +79,7 @@ class Mushroom(Character):
         if col == "top":
             self.die()
             princess.stop()
+            princess.add_throw()
         elif col != -1:
             princess.die()
 

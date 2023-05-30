@@ -22,6 +22,7 @@ class Level:
         self.carnivorous_plants = []
         self.projectiles = []
 
+        self.max_world_pos = 0
         self.world_pos = 0
         self.tile_shift = 0
         self.shift_offset = tile_size * 5
@@ -36,7 +37,9 @@ class Level:
         block = random.choice(level_blocks)
         enemy_num = self.blocks_num
         cols = []
-        while enemy_num > 0:
+        tries = 0
+        while enemy_num > 0 and tries < len(block[0]) * 2:
+            tries += 1
             row = random.randint(0, len(block) - 1)
             col = random.randint(0, len(block[0]) - 1)
             # print(f"row {row}, col {col}, block[row][col] {repr(block[row][col])}")
@@ -84,6 +87,12 @@ class Level:
             x = width // 2 - death_message.get_width() // 2
             y = height // 2 - death_message.get_height() // 2
             self.display_surface.blit(death_message, (x, y))
+            x = width // 2 - play_again.get_width() // 2
+            y = height // 2 + death_message.get_height() // 2
+            self.display_surface.blit(play_again, (x, y))
+        # info for the user
+        self.draw_cones()
+        self.draw_score()
 
     def update(self):
         if self.dead:
@@ -99,7 +108,8 @@ class Level:
         self.update_list(self.projectiles, self.tiles, self.enemies, self.princess)
 
         for enemy in self.enemies:
-            if enemy.get_rect().right < 0:
+            enemy_rect = enemy.get_rect()
+            if enemy_rect.right < 0 or enemy_rect.top > height:
                 self.enemies.remove(enemy)
         self.update_list(self.enemies, self.tiles, self.princess)
 
@@ -128,6 +138,8 @@ class Level:
             tile.move_x(self.tile_shift)
         for enemy in self.enemies:
             enemy.set_x(enemy.x + self.tile_shift)
+        for projectile in self.projectiles:
+            projectile.set_x(projectile.x + self.tile_shift)
 
     def check_block(self):
         if self.world_pos + width >= (self.blocks_num + 1) * block_pixel_width:
@@ -136,8 +148,6 @@ class Level:
 
     def add_block(self):
         self.create_block(abs(self.world_pos - self.blocks_num * block_pixel_width))
-
-
 
     @staticmethod
     def draw_list(lst, surface):
@@ -156,6 +166,21 @@ class Level:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_r]:
                 self.__init__(self.blocks, self.display_surface)
+
+    def draw_cones(self):
+        y = tile_size
+        xoffset = font.render(str(self.max_world_pos).zfill(10), True, "White").get_width()
+        x = [0 + xoffset,
+             cone_width + xoffset,
+             cone_width * 2 + xoffset]
+        for i in range(self.princess.throws):
+            self.display_surface.blit(cone_image, (x[i], y))
+
+    def draw_score(self):
+        if self.max_world_pos < self.world_pos:
+            self.max_world_pos = self.world_pos
+        txt = font.render(str(self.max_world_pos).zfill(10), True, "White")
+        self.display_surface.blit(txt, (0, tile_size))
 
     def die(self):
         self.dead = True

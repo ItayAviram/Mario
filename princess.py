@@ -17,11 +17,12 @@ class Princess(Character):
         # movement:
         #   constants:
         self.xvel = 8
-        self.jump_height = 10
+        self.jump_height = 9.5
         self.gravity = 0.25
         #   changeables:
         self.x_speed_mul = self.xvel
         self.direction = 0  # direction of x
+        self.facing = 1
         self.yvel = 0
 
         self.pressed_space = False
@@ -66,12 +67,15 @@ class Princess(Character):
         pass
 
     def draw(self, surface):
-        surface.blit(self.image, (self.x, self.y))
+        if self.facing == 1:
+            surface.blit(self.image, (self.x, self.y))
+        elif self.facing == -1:
+            surface.blit(pygame.transform.flip(self.image, True, False), (self.x, self.y))
 
     def throw(self):
         if self.throws > 0:
             self.stop()
-            self.level.projectiles.append(Projectile((self.x, self.y), cone_x_vel, cone_y_vel, cone_image, self.level, "cone")
+            self.level.projectiles.append(Projectile((self.x, self.y), cone_x_vel * self.facing, cone_y_vel, cone_image, self.level, "cone")
                                 )
             self.throws -= 1
 
@@ -79,8 +83,10 @@ class Princess(Character):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
             self.direction = 1
+            self.facing = 1
         elif keys[pygame.K_a]:
             self.direction = -1
+            self.facing = -1
         else:
             self.direction = 0
         if keys[pygame.K_w] and self.can_jump:
@@ -108,11 +114,9 @@ class Princess(Character):
         if self.rect.top > height:
             self.die()
 
-    def update_health(self, val):
-        self.health = val
-
-    def update_leaves(self, val):
-        self.leaves = val
+    def add_throw(self):
+        if self.throws < 3:
+            self.throws += 1
 
     def get_rect(self):
         return self.rect

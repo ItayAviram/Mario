@@ -11,6 +11,7 @@ class Snake(Character):
         self.rect = self.image.get_rect(topleft=pos)
 
         self.yvel = 0
+        self.xvel = 4
 
     def set_x(self, val):
         self.x = val
@@ -22,6 +23,9 @@ class Snake(Character):
 
     def move_y(self):
         self.set_y(self.y + self.yvel)
+
+    def move_x(self):
+        self.set_x(self.x + self.xvel)
 
     def stop(self):
         self.stop_x()
@@ -75,9 +79,6 @@ class Snake(Character):
         pass
 
     def stop_x(self):
-        pass
-
-    def move_x(self):
         pass
 
     def jump(self):

@@ -70,6 +70,7 @@ class Projectile(Movement):
                     self.die()
                     if not isinstance(enemy, BananaPeel):
                         enemy.die()
+                        princess.add_throw()
                     break
         elif self.type == "stone":
             if self.is_colliding_with(princess):
@@ -77,7 +78,8 @@ class Projectile(Movement):
                 princess.die()
 
     def die(self):
-        self.level.projectiles.remove(self)
+        if self in self.level.projectiles:
+            self.level.projectiles.remove(self)
 
     def is_colliding_with(self, obj):
         return self.rect.colliderect(obj.get_rect())
