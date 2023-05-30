@@ -1,16 +1,18 @@
 from character import Character
 from config import *
 import pygame
+from projectile import Projectile
 
-
-class BananaPeel(Character):
+class Mushroom(Character):
     # noinspection PyMissingConstructor
-    def __init__(self, pos, image):
+    def __init__(self, pos, image, level):
         self.x, self.y = pos[0], pos[1]  # (x, y)
         self.image = image  # type: pygame.Surface
         self.rect = self.image.get_rect(topleft=pos)
+        self.level = level
 
         self.yvel = 0
+        self.stone_cooldown = 100
 
     def set_x(self, val):
         self.x = val
@@ -61,18 +63,38 @@ class BananaPeel(Character):
             if col:  # col != None
                 return col
 
+    def check_collision_princess(self, princess):
+        princess_rect = princess.get_rect()
+        if self.rect.colliderect(princess_rect):
+            if abs(self.rect.top - princess_rect.bottom) <= collision_tolerance:
+                return "top"
+            return "not top"
+        return -1
+
     def update(self, tiles, princess):
         self.move_y()
         self.check_collision_vertical(tiles)
         self.accelerate()
-        if self.rect.colliderect(princess.get_rect()):
+        col = self.check_collision_princess(princess)
+        if col == "top":
+            self.die()
+            princess.stop()
+        elif col != -1:
             princess.die()
+
+        if self.stone_cooldown == 0:
+            self.throw()
+            self.stone_cooldown = 100
+        self.stone_cooldown -= 1
+
+    def throw(self):
+        self.level.projectiles.append(Projectile((self.x, self.y ), stone_x_vel, stone_y_vel, stone_image, self.level, "stone"))
 
     def speak(self, what_to_say):
         pass
 
     def die(self):
-        pass
+        self.level.enemies.remove(self)
 
     def stop_x(self):
         pass

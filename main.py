@@ -2,6 +2,7 @@ import pygame
 import sys
 from level import Level
 from config import *
+from mushroom import Mushroom
 
 pygame.init()
 screen = pygame.display.set_mode((width, height))
@@ -18,8 +19,7 @@ def main():
                 pygame.quit()
                 sys.exit(1)
 
-        level.draw()
-        level.update()
+        level.run()
 
         pygame.display.update()
         clock.tick(60)

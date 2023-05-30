@@ -1,11 +1,7 @@
-from config import cone_width, cone_height, cone_x_vel, cone_y_vel
-from config import width, height
+from config import *
 from character import Character
-from cone import Cone
+from projectile import Projectile
 import pygame
-
-
-gravity = 10
 
 
 class Princess(Character):
@@ -58,12 +54,11 @@ class Princess(Character):
         self.stop_x()
         self.stop_y()
 
-
     def accelerate(self):
-        self.yvel += self.gravity
+        self.yvel += gravity
 
     def die(self):
-        print("[princess] im dead!")
+        self.level.die()
         # if self.health > 0:
         #     self.update_health(self.health - 1)
 
@@ -74,10 +69,11 @@ class Princess(Character):
         surface.blit(self.image, (self.x, self.y))
 
     def throw(self):
-        self.stop()
-        self.level.cones.append(Cone((self.x, self.y), pygame.Surface((cone_width, cone_height)),
-                                     self.level, cone_x_vel, cone_y_vel)
+        if self.throws > 0:
+            self.stop()
+            self.level.projectiles.append(Projectile((self.x, self.y), cone_x_vel, cone_y_vel, cone_image, self.level, "cone")
                                 )
+            self.throws -= 1
 
     def get_input(self):
         keys = pygame.key.get_pressed()

@@ -80,12 +80,14 @@ class Movement(ABC):
         """
         pass
 
+    @abstractmethod
     def set_x(self, val):
         """
         set method for self.x
         """
         pass
 
+    @abstractmethod
     def set_y(self, val):
         """
         set method for self.y

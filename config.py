@@ -1,17 +1,21 @@
 import pygame
 import random
 
-width, height = (900, 600)
-p_width = 40  # princess width and height
-c_width, c_height = 20, 50  # checkpoint width and height
-a_width, a_height = 20, 50  # carnivorous plant width and height
-cone_width, cone_height = 20, 20
+width, height = (1100, 600)
 
+princess_width = 40  # princess width
+
+cone_width = 40
 cone_x_vel = 10
 cone_y_vel = -2
 
+stone_width = 40
+stone_x_vel = -15
+stone_y_vel = -4
 
-# generate level map: [["" for i in range(<width>)] for j in range(<height>)]
+gravity = 0.25
+
+# **BLOCKS**
 # X represents a tile
 # O represents a coin
 # P represents the princess
@@ -20,8 +24,6 @@ cone_y_vel = -2
 # S represents a snake
 # B represents a banana peal
 # A represents a carnivorous plant
-
-
 
 
 level_blocks = [
@@ -98,41 +100,67 @@ level_blocks = [
         "XXXXXXXX   XXXXXXXXXXXXXXXXXXX"
      ],
 ]
-
-level_map = level_blocks[0]
+# tiles
 tile_size = height / len(level_blocks[0])
 
-block_width = len(level_blocks[0][0])
-block_height = len(level_blocks[0])
+# enemies
+b_width = tile_size * 0.8
+m_width = tile_size * 0.8
+
+# block
+block_width = len(level_blocks[0][0])  # in tiles
+block_height = len(level_blocks[0])  # in tiles
 block_pixel_width = block_width * tile_size  # in pixels
 block_pixel_height = block_height * tile_size  # in pixels
 
-
-def generate_random_level_map(l_width, l_height, chance_for_tile):
-    m = []
-    for i in range(l_height-1):
-        row = ""
-        for j in range(l_width):
-            if random.randint(0,100) < chance_for_tile:
-                row += "X"
-            else:
-                row += " "
-        m.append(row)
-    m.append("X" * l_width)
-    print("[")
-    for row in m:
-        print("    \"" + row + "\",")
-    print("]")
-    return m
-
-
-generate_random_level_map(30, 10, 20)
+# collision
+collision_tolerance = 20
 
 # images
-background_image = pygame.image.load(r'images\bcimage.jpg')
-background_image = pygame.transform.scale(background_image, (width, height))
-enemy_image = pygame.image.load(r'images\enemies\enemy.png')  # type: pygame.Surface
 tile_image = pygame.image.load(r"images\tile.png")
+
 princess_image = pygame.image.load(r"images\princess.png")
-p_height = p_width * (princess_image.get_height() / princess_image.get_width())  # keep the image width to height ratio
-princess_image = pygame.transform.scale(princess_image, (p_width, p_height))
+p_height = princess_width * (princess_image.get_height() / princess_image.get_width())  # keep the image width to height ratio
+princess_image = pygame.transform.scale(princess_image, (princess_width, p_height))
+
+banana_image = pygame.image.load(r"images\enemies\banana_peel.png")
+b_height = b_width * (banana_image.get_height() / banana_image.get_width())
+banana_image = pygame.transform.scale(banana_image, (b_width, b_height))
+
+mushroom_image = pygame.image.load(r"images\enemies\mushroom.png")
+m_height = m_width * (mushroom_image.get_height() / mushroom_image.get_width())
+mushroom_image = pygame.transform.scale(mushroom_image, (m_width, m_height))
+
+cone_image = pygame.image.load(r"images\pinecone.png")
+cone_height = cone_width * (cone_image.get_height() / cone_image.get_width())
+cone_image = pygame.transform.scale(cone_image, (cone_width, cone_height))
+
+stone_image = pygame.image.load(r"images\stone.png")
+stone_height = stone_width * (stone_image.get_height() / stone_image.get_width())
+stone_image = pygame.transform.scale(stone_image, (stone_width, stone_height))
+
+# text
+pygame.font.init()
+font = pygame.font.SysFont("Arial", 72)
+death_message = font.render("Game Over!", True, "white")
+
+
+# def generate_random_level_map(l_width, l_height, chance_for_tile):
+#     m = []
+#     for i in range(l_height-1):
+#         row = ""
+#         for j in range(l_width):
+#             if random.randint(0,100) < chance_for_tile:
+#                 row += "X"
+#             else:
+#                 row += " "
+#         m.append(row)
+#     m.append("X" * l_width)
+#     print("[")
+#     for row in m:
+#         print("    \"" + row + "\",")
+#     print("]")
+#     return m
+
+
+# generate_random_level_map(30, 10, 20)
