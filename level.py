@@ -5,6 +5,7 @@ from princess import Princess
 from checkpoint import Checkpoint
 from banana_peel import BananaPeel
 from mushroom import Mushroom
+from python_snake import Snake
 import random
 
 
@@ -45,18 +46,18 @@ class Level:
             # print(f"row {row}, col {col}, block[row][col] {repr(block[row][col])}")
             if block[row][col] == " " and col not in cols:
                 cols.append(col)
-                choice = random.choice(["M", "B"])
+                choice = random.choice(["M", "B", "S"])
+                choice = "S"
                 xpos = col * tile_size + xoffset
                 ypos = row * tile_size + yoffset
                 pos = xpos, ypos
                 print(f"{choice} at {pos}")
-                if choice == "S":
-                    pass
-                    # self.enemies.append(Snake(pos, snake_image))
-                if choice == "B":
-                    self.enemies.append(BananaPeel(pos, banana_image))
                 if choice == "M":
                     self.enemies.append(Mushroom(pos, mushroom_image, self))
+                if choice == "B":
+                    self.enemies.append(BananaPeel(pos, banana_image))
+                if choice == "S":
+                    self.enemies.append(Snake(pos, snake_image, self))
                 enemy_num -= 1
         for y, row in enumerate(block):
             for x, col in enumerate(row):
