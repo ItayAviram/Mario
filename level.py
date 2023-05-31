@@ -47,7 +47,6 @@ class Level:
             if block[row][col] == " " and col not in cols:
                 cols.append(col)
                 choice = random.choice(["M", "B", "S"])
-                choice = "S"
                 xpos = col * tile_size + xoffset
                 ypos = row * tile_size + yoffset
                 pos = xpos, ypos

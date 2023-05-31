@@ -2,7 +2,6 @@ import pygame
 import sys
 from level import Level
 from config import *
-from mushroom import Mushroom
 
 pygame.init()
 screen = pygame.display.set_mode((width, height))
